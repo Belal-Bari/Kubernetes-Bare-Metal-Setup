@@ -9,3 +9,7 @@ The setup of the k8 cluster will be done in virtual machines and the planned spe
 | Server  | Kub server      | 1   | 1GB   | 5GB     |
 | Node-0  | Worker Node-0   | 1   | 1.5GB | 5GB     |
 | Node-1  | Worker Node-1   | 1   | 1.5GB | 5GB     |
+
+*Note* : The entire setup is done on a windows host machine and Virtual Box is used to run the VMs.
+
+Now we can move on to the next step for setting up the jumpbox.
