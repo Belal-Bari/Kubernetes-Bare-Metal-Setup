@@ -79,3 +79,39 @@ node-0.kubernetes.local
 node-1.kubernetes.local
 ```
 ## Host Lookup Table
+Create a new hosts file and add a header to identify the machines being added:
+```bash
+echo "" > hosts
+echo "# Kubernetes The Hard Way" >> hosts
+```
+This will allow each machine to be reachable using a hostname such as server, node-0, node-1.
+```bash
+cd ~/kubernetes-the-hard-way
+while read IP FQDN HOST SUBNET; do
+    ENTRY="${IP} ${FQDN} ${HOST}"
+    echo $ENTRY >> hosts
+done < machines.txt
+cat hosts
+```
+## Adding /etc/hosts Entries to a local machine
+The DNS entries from the hosts file to the local /etc/hosts file will be appended on the jumpbox machine.
+```bash
+cd ~/kubernetes-the-hard-way
+cat hosts >> /etc/hosts
+```
+```bash
+for host in server node-0 node-1
+    do ssh root@${host} hostname
+done
+```
+## Adding /etc/hosts entries to the remote machines
+Copy the hosts file to each machine and append the contents to /etc/hosts:
+```bash
+cd ~/kubernetes-the-hard-way
+while read IP FQDN HOST SUBNET; do
+    scp hosts root@${HOST}:~/
+    ssh -n \
+        root@${HOST} "cat hosts >> /etc/hosts"
+done < machines.txt
+```
+## Provisioning a CA and Generating TLS Certificates
