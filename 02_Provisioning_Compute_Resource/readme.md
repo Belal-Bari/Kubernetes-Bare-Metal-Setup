@@ -114,4 +114,3 @@ while read IP FQDN HOST SUBNET; do
         root@${HOST} "cat hosts >> /etc/hosts"
 done < machines.txt
 ```
-## Provisioning a CA and Generating TLS Certificates
