@@ -44,3 +44,25 @@ for i in ${certs[*]}; do
 done
 ```
 ## Distribute the Client and Server Certificates
+Copy the appropriate certificates and private keys to the node-0 and node-1 machines:
+```bash
+for host in node-0 node-1; do
+    ssh root@${host} mkdir /var/lib/kubelet/
+
+    scp ca.crt root@${host}:/var/lib/kubelet/
+
+    scp ${host}.crt \
+        root@${host}:/var/lib/kubelet/kubelet.crt
+
+    scp ${host}.key \
+        root@${host}:/var/lib/kubelet/kubelet.key
+done
+```
+Copy the appropriate certificates and private keys to the `server` machine:
+```bash
+scp \
+    ca.key ca.crt \
+    kube-api-server.key kube-api-server.crt \
+    service-accounts.key service-accounts.crt \
+    root@server:~/
+```
