@@ -82,3 +82,29 @@ cd kubernetes-the-hard-way
         --kubeconfig=kube-controller-manager.kubeconfig
 }
 ```
+## The kube-scheduler Kubernetes Configuration File
+Generate a kubeconfig file for the kube-scheduler service:
+```bash
+cd kubernetes-the-hard-way
+{
+    kubectl config set-cluster kubernetes-the-hard-way \
+        --certificate-authority=ca.crt \
+        --embed-certs=true \
+        --server=https://server.kubernetes.local:6443 \
+        --kubeconfig=kube-scheduler.kubeconfig
+
+    kubectl config set-credentials system:kube-scheduler \
+        --client-certificate=kube-scheduler.crt \
+        --client-key=kube-scheduler.key \
+        --embed-certs=true \
+        --kubeconfig=kube-scheduler.kubeconfig
+
+    kubectl config set-context default \
+        --cluster=kubernetes-the-hard-way \
+        --user=system:kube-schedular \
+        --kubeconfig=kube-scheduler.kubeconfig
+
+    kubectl config use-context default \
+        --kubeconfig=kube-scheduler.kubeconfig
+}
+```
