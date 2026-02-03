@@ -108,3 +108,29 @@ cd kubernetes-the-hard-way
         --kubeconfig=kube-scheduler.kubeconfig
 }
 ```
+## The admin Kubernetes Configuration File
+Generate a kubeconfig file for the admin user:
+```bash
+cd kubernetes-the-hard-way
+{
+    kubectl config set-cluster kubernetes-the-hard-way \
+        --certificate-authority=ca.crt \
+        --embed-certs=true \
+        --server=http://127.0.0.1:6443 \
+        --kubeconfig=admin.kubeconfig
+
+    kubectl config set-credentials admin \
+        --client-certificate=admin.crt \
+        --client-key=admin.key \
+        --embed-certs=true \
+        --kubeconfig=admin.kubeconfig 
+
+    kubectl config set-context default \
+        --cluster=kubernetes-the-hard-way \
+        --user=admin \
+        --kubeconfig=admin.kubeconfig
+
+    kubectl config use-context default \
+        --kubeconfig=admin.kubeconfig
+}
+```
