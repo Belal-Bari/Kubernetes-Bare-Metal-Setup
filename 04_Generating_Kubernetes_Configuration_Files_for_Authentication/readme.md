@@ -134,3 +134,25 @@ cd kubernetes-the-hard-way
         --kubeconfig=admin.kubeconfig
 }
 ```
+## Distribute the Kubernetes Configuration Files
+Copy the kubelet and kube-proxy kubeconfig files to the node-0 and node-1 machines:
+``` bash
+cd kubernetes-the-hard-way
+for host in node-0 node-1; do
+    ssh root@${host} "mkdir -p /var/lib/{kube-proxy,kubelet}"
+
+    scp kube-proxy.kubeconfig \
+        root@${host}:/var/lib/kube-proxy/kubeconfig \
+
+    scp ${host}.kubeconfig \
+        root@${host}:/var/lib/kubelet/kubeconfig
+done
+```
+Copy the kube-controller-manager and kube-scheduler kubeconfig files to the server machine:
+```bash
+cd kubernetes-the-hard-way
+scp admin.kubeconfig \
+    kube-controller-manager.kubeconfig \
+    kube-scheduler.kubeconfig \
+    root@server:~/
+```
