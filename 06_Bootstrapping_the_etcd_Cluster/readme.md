@@ -47,3 +47,25 @@ List the etcd cluster members:
 ``` bash
 etcdctl member list
 ```
+## Bootstrapping the Kubernetes Control Plane
+The following components will be installed on the server machine: Kubernetes API Server, Scheduler, and Controller Manager.
+### Prerequisites
+Connect to the jumpbox and copy Kubernetes binaries and systemd unit files to the server machine:
+``` bash
+scp \
+    downloads/controller/kube-apiserver \
+    downloads/controller/kube-controller-manager \
+    downloads/controller/kube-scheduler \
+    downloads/client/kubectl \
+    units/kube-apiserver.service \
+    units/kube-controller-manager.service \
+    units/kube-scheduler.service \
+    configs/kube-scheduler.yaml \
+    configs/kube-apiserver-to-kubelet.yaml \
+    root@server:~/
+```
+The commands next must be run on the server machine. Login to the server machine using the ssh command. Example:
+```bash
+ssh -i ~/.ssh/my-key-pair root@server
+```
+## Provision the Kuberetes Control Plane
