@@ -110,3 +110,37 @@ Create the kube-controller-manager.service systemd unit file:
 mv kube-controller-manager.service /etc/systemd/system/
 ```
 ## Configure the Kubernetes Scheduler
+Move the kube-scheduler kubeconfig into place:
+```bash
+mv kube-scheduler.kubeconfig /var/lib/kubernetes/
+```
+Create the kube-scheduler.yaml configuration file:
+```bash
+mv kube-scheduler.yaml /etc/kubernetes/config/
+```
+Create the kube-scheduler.service systemd unit file:
+```bash
+mv kube-scheduler.service /etc/systemd/system/
+```
+## Start the Controller Service
+```bash
+{
+    systemctl daemon-reload
+
+    systemctl enable kube-apiserver \
+        kube-controller-manager kube-scheduler
+    
+    systemctl start kube-apiserver \
+        kube-controller-manager kube-scheduler
+}
+```
+Allow up to 10 seconds for the Kubernetes API Server to fully initialize.</br>
+You can check if any of the control plane components are active using the systemctl command. For example, to check if the kube-apiserver fully initialized, and active, run the following command:
+```bash
+systemvtl is-active kube-apiserver
+```
+For a more detailed status check, which includes additional process information and log messages, use the systemctl status command:
+```bash
+systemctl status kube-apiserver
+```
+## Verification
