@@ -69,3 +69,44 @@ The commands next must be run on the server machine. Login to the server machine
 ssh -i ~/.ssh/my-key-pair root@server
 ```
 ## Provision the Kuberetes Control Plane
+Create the Kubernetes configuration directory:
+```bash
+mkdir -p /etc/kubernetes/config
+```
+## Install the kubernetes Controller Binaries
+Install the Kubernetes binaries:
+```bash
+{
+    mv kube-apiserver \
+        kube-controller-manager \
+        kube-scheduler kubectl \
+        /usr/local/bin/
+}
+```
+## Configure the Kubernetes API Server
+```bash
+{
+    mkdir -p /var/lib/kubernetes/
+
+    mv ca.crt ca.key \
+        kube-api-server.key kube-api-server.crt \
+        service-accounts.key service-accounts.crt \
+        encryption-config.yaml \
+        /var/lib/kubernetes/
+}
+```
+Create the kube-apiserver.service systemd unit file:
+```bash
+mv kube-apiserver.service \
+    /etc/systemd/system/kube-apiserver.service
+```
+## Configure the Kubernetes Controller Manager
+Move the kube-controller-manager kubeconfig into place:
+```bash
+mv kube-controller-manager.kubeconfig /var/lib/kubernetes/
+```
+Create the kube-controller-manager.service systemd unit file:
+```bash
+mv kube-controller-manager.service /etc/systemd/system/
+```
+## Configure the Kubernetes Scheduler
