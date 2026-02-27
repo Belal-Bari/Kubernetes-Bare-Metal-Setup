@@ -144,3 +144,7 @@ For a more detailed status check, which includes additional process information 
 systemctl status kube-apiserver
 ```
 ## Verification
+List the etcd cluster members:
+```bash
+etcdctl member list
+```
