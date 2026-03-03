@@ -144,7 +144,33 @@ For a more detailed status check, which includes additional process information 
 systemctl status kube-apiserver
 ```
 ## Verification
-List the etcd cluster members:
+At this point the Kubernetes control plane components should be up and running. Verify this using the kubectl command line tool:
 ```bash
-etcdctl member list
+kubectl-cluster-info \
+    --kubeconfig admin.kubeconfig
 ```
+The following error was found due to mismatch of time within the cluster components and the jumpbox:
+```bash
+kubectl cluster-info --kubeconfig admin.kubeconfig
+```
+If it shows that the certificate is expired then sync the time.
+
+## RBAC for Kubelet Authorization
+Configure RBAC permissions to allow the Kubernetes API Server to access the Kubelet API on each worker node. Access to the Kubelet API is required for retrieving metrics, logs, and executing commands in pods.</br>
+*Note: the Kubelet --authorization-mode flag is set to Webhook. Webhook mode uses the SubjectAccessReview API to determine authorization.</br>
+The commands in this section will affect the entire cluster and only need to be run on the server machine.</br>
+```bash
+ssh root@server
+```
+Create the system:kube-apiserver-to-kubelet ClusterRole with permissions to access the Kubelet API and perform most common tasks associated with managing pods:
+```bash
+kubectl apply -f kube-apiserver-to-kubelet.yaml \
+    --kubeconfig admin.kubeconfig
+```
+## Verification
+At this point the Kubernetes control plane is up and running. Run the following commands from the jumpbox machine to verify it's working:</br>
+Make a HTTP request for the Kubernetes version info:
+```bash
+curl --cacert https://server.kubernetes.local:6443/version
+```
+Make sure you are in the directory where ca.crt is available.</br>
