@@ -14,3 +14,28 @@ for HOST in node-0 node-1; do
     root@{HOST}:~/
 done
 ```
+```bash
+for HOST in node-0 node-1; do
+    scp \
+        downloads/worker/* \
+        downloads/client/kubectl \
+        configs/99-loopback.conf \
+        configs/containerd-config.toml \
+        configs/kube-proxy-config.yaml \
+        units/containerd.service \
+        units/kubelet.service \
+        units/kube-proxy.service \
+        root@${HOST}:~/
+done
+```
+```bash
+for HOST in node-0 node-1; do
+    scp \
+        downloads/cni-plugins/* \
+        root@${HOST}:~/cni-plugins/
+done
+```
+The commands in the next section must be run on each worker instance: node-0, node-1. Login to the worker instance using the ssh command. Example:
+```bash
+ssh root@node-0
+```
