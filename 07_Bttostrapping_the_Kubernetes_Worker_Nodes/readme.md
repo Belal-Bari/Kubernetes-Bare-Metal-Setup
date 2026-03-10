@@ -80,3 +80,22 @@ swapon --show
 ```
 Now continue with the process…</br>
 Create the installation directories:
+```bash
+mkdir -p \
+    /etc/cni/net.d \
+    /opt/cni/bin \
+    /var/lib/kubelet \
+    /var/lib/kube-proxy \
+    /var/lib/kubernetes \
+    /var/run/kuberetes
+```
+Install the worker binaries:
+```bash
+{
+    mv crictl kube-proxy kubelet runc \
+        /usr/local/bin/
+    mv containerd containerd-shim-runc-v2 containerd-stress /bin/
+    mv cni-plugins/* /opt/cni/bin
+}
+```
+## Configure CNI Networking
