@@ -99,3 +99,24 @@ Install the worker binaries:
 }
 ```
 ## Configure CNI Networking
+Create the bridge network configuration file:
+```bash
+mv 10-bridge.conf 99-loopback.conf /etc/cni/net.d/
+```
+To ensure network traffic crossing the CNI bridge network is processed by iptables, load and configure the br-netfilter kernel module:
+```bash
+{
+    modprobe br-netfilter
+    echo "br-netfilter" >> /etc/modules-load.d/modules.conf
+}
+```
+```bash
+{
+    echo "net.bridge.bridge-nf-call-iptables = 1" \
+        >> /etc/sysctl.d/kubernetes.conf
+    echo "net.bridge.bridge-nf-call-ip6tables = 1" \
+        >> /etc/sysctl.d/kubernetes.conf
+    sysctl -p /etc/sysctl.d/kubernetes.conf
+}
+```
+## Configure containerd
