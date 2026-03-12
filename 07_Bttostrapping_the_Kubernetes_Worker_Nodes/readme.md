@@ -120,3 +120,20 @@ To ensure network traffic crossing the CNI bridge network is processed by iptabl
 }
 ```
 ## Configure containerd
+Install the containerd configuration files:
+```bash
+{
+    mkdir -p /etc/containerd/
+    mv containerd-config.toml /etc/containerd/config.toml
+    mv containerd.service /etc/systemd/
+}
+```
+## Configure the Kubelet
+Create the kubelet-config.yaml configuration file:
+```bash
+{
+    mv kubelet-config.yaml /var/lib/kubelet/
+    mv kubelet.service /etc/systemd/system/
+}
+```
+## Configure the Kubernetes Proxy
