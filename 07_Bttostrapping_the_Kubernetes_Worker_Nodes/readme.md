@@ -137,3 +137,8 @@ Create the kubelet-config.yaml configuration file:
 }
 ```
 ## Configure the Kubernetes Proxy
+```bash
+{
+    mv kubelet-config.yaml /var/lib/kublet/
+    mv kubelet.service /etc/systemd/system/
+}
