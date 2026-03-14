@@ -142,3 +142,18 @@ Create the kubelet-config.yaml configuration file:
     mv kubelet-config.yaml /var/lib/kublet/
     mv kubelet.service /etc/systemd/system/
 }
+```
+## Start the Worker Services
+```bash
+{
+    systemctl daemon-reload
+    systemctl enable containerd kubelet kube-proxy
+    systemctl start containerd kubelet kube-proxy
+}
+```
+Check if the kubelet service is running:
+```bash
+systemctl is-active kubelet
+```
+All the above steps should be repeated for node-1 also.
+## Verification
