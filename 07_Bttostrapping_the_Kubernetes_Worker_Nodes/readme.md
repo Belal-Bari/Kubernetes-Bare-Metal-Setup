@@ -157,3 +157,10 @@ systemctl is-active kubelet
 ```
 All the above steps should be repeated for node-1 also.
 ## Verification
+Run the following commands from the jumpbox machine.</br>
+List the registered Kubernetes nodes:
+```bash
+ssh -i ~/.ssh/my-key-pair root@server \
+    "kubectl get nodes \
+    --kubeconfig admin.kubeconfig"
+```
