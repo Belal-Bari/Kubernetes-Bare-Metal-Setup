@@ -29,3 +29,12 @@ Generate a kubeconfig file suitable for authenticating as the admin user:
 }
 ```
 The results of running the command above should create a kubeconfig file in the default location ~/.kube/config used by the kubectl command line tool. This also mean you can run the kubectl command without specifying a config.
+## Verification
+Check the version of the remote Kubernetes cluster:
+```bash
+kubectl version
+```
+List nodes in the remote Kubernetes cluster:
+```bash
+kubectl get nodes
+```
