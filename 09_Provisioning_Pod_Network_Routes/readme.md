@@ -12,4 +12,20 @@ Print the internal IP address and Pod CIDR range for each worker instance:
     NODE_1_IP=$(grep node-1 machines.txt | cut -d " " -f 1)
     NODE_1_SUBNET=$(grep node-1 machines.txt | cut -d " " -f 4)
 }
+```
 ```bash
+ssh root@server <<EOF 
+    ip route add ${NODE_0_SUBNET} via ${NODE_0_IP}
+    ip route add ${NODE_1_SUBNET} via ${NODE_1_IP}
+EOF
+```
+```bash
+ssh root@node-0 <<EOF
+    ip route add ${NODE_1_SUBNET} via ${NODE_1_IP}
+EOF
+```
+```bash
+ssh root@node-1 <<EOF
+    ip route add ${NODE_0_SUBNET} via ${NODE_0_IP}
+EOF
+```
