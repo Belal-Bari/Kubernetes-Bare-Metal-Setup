@@ -29,3 +29,11 @@ ssh root@node-1 <<EOF
     ip route add ${NODE_0_SUBNET} via ${NODE_0_IP}
 EOF
 ```
+## Verification
+```bash
+ssh -i ~/.ssh/my-key-pair root@server ip route default dev enp0s3 scope link src 169.254.204.209 metric 1001002
+
+ssh -i ~/.ssh/my-key-pair root@node-0 ip route default via 10.0.3.2 dev enp0s8 proto dhcp src 10.0.3.15 metric 1003 default dev enp0s3 scope link src 169.254.33.126 metric 1001002
+
+ssh -i ~/.ssh/my-key-pair root@node-1 ip route default via 10.0.3.2 dev enp0s8 proto dhcp src 10.0.3.15 metric 1003 default dev enp0s3 scope link src 169.254.23.123 metric 1001002
+```
