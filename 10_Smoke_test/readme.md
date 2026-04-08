@@ -14,3 +14,15 @@ ssh root@server \
     'etcdctl get /register/secrets/default/kubernetes-the-hard-way | hexdump -C'
 ```
 The etcd key should be prefixed with k8s:enc:aescbc:v1:key1, which indicates the aescbc provider was used to encrypt the data with the key1 encryption key.
+
+## Deployments
+
+In this section you will verify the ability to create and manage Deployments.</br>
+Create a deployment for the nginx web server:
+```bash
+kubectl create deployment nginx \
+    --image=nginx:latest
+```
+```bash
+kubectl get deployment
+```
