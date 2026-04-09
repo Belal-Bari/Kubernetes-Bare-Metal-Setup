@@ -26,3 +26,7 @@ kubectl create deployment nginx \
 ```bash
 kubectl get deployment
 ```
+List the pod created by the nginx deployment:
+```bash
+kubectl get pods -l app=nginx
+```
