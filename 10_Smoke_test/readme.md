@@ -30,3 +30,11 @@ List the pod created by the nginx deployment:
 ```bash
 kubectl get pods -l app=nginx
 ```
+## Port Forwarding
+In this section you will verify the ability to access applications remotely using port forwarding.
+```bash
+kubectl port-forward nginx-54c98b4f84-vf86g 8080:80
+```
+```bash
+curl --head http://127.0.0.1:8080
+```
