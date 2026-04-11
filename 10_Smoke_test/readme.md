@@ -38,3 +38,10 @@ kubectl port-forward nginx-54c98b4f84-vf86g 8080:80
 ```bash
 curl --head http://127.0.0.1:8080
 ```
+
+## Logs
+In this secction you will verify the ability to retrieve container logs.</br>
+Print the nginx pod logs:
+```bash
+kubectl logs nginx-54c98b4f84-vf86g
+```
