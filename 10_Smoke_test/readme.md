@@ -45,3 +45,7 @@ Print the nginx pod logs:
 ```bash
 kubectl logs nginx-54c98b4f84-vf86g
 ```
+
+## Exec
+
+In this section you will verify the ability to execute commands in a container.</br>
