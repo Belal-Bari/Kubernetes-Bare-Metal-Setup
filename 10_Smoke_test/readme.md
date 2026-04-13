@@ -49,3 +49,7 @@ kubectl logs nginx-54c98b4f84-vf86g
 ## Exec
 
 In this section you will verify the ability to execute commands in a container.</br>
+Print the nginx version by executing the nginx -v command in the nginx container:
+```bash
+kubectl exec -ti nginx-54c98b4f84-vf86g -- nginx -v
+```
