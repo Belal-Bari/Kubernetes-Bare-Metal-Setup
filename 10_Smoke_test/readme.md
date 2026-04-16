@@ -53,3 +53,12 @@ Print the nginx version by executing the nginx -v command in the nginx container
 ```bash
 kubectl exec -ti nginx-54c98b4f84-vf86g -- nginx -v
 ```
+
+## Services
+
+In this section you will verify the ability to expose applications using a Service.</br>
+Expose the nginx deployment using a NodePort service:
+```bash
+kubectl expose deployment nginx \
+    --port 80 --type NodePort
+```
