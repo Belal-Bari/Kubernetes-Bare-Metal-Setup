@@ -62,3 +62,11 @@ Expose the nginx deployment using a NodePort service:
 kubectl expose deployment nginx \
     --port 80 --type NodePort
 ```
+Retrieve the node port assigned to the nginx service:
+```bash
+kubectl get svc nginx \
+    --output=jsonpath='{range .spec.ports[0]}{.nodePort}'
+```
+```bash
+get svc -o wide.1:80
+```
