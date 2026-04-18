@@ -70,3 +70,9 @@ kubectl get svc nginx \
 ```bash
 get svc -o wide.1:80
 ```
+Retrieve the hostname of the node running the nginx pod:
+```bash
+kubectl get pods \
+    -l app=nginx \
+    -o jsonpath="{.item[0].spec.nodeName}"
+```
