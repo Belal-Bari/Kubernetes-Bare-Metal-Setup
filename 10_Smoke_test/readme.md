@@ -76,3 +76,7 @@ kubectl get pods \
     -l app=nginx \
     -o jsonpath="{.item[0].spec.nodeName}"
 ```
+Make an HTTP request using the IP address and the nginx node port:
+```bash
+curl -I http://node-1:32131
+```
